@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<view name='Tokens' alias='vwTokens' xmlns='http://www.lotus.com/dxl' version='9.0'
+ replicaid='C1257BED00295BDF' hide='web' showinmenu='false' publicaccess='false'
+ designerversion='8.5.3' unreadmarks='none' onopengoto='lastopened' onrefresh='displayindicator'
+ headers='beveled' opencollapsed='false' showresponsehierarchy='true' showmargin='true'
+ shrinkrows='false' extendlastcolumn='false' showhierarchies='false' unreadcolor='black'
+ rowlinecount='1' headerlinecount='1' rowspacing='1' bgcolor='white' altrowcolor='#e0f1ff'
+ totalscolor='black' headerbgcolor='white' boldunreadrows='false' evaluateactions='false'
+ allownewdocuments='false' allowcustomizations='true' hidemarginborder='false'
+ marginwidth='0px' marginbgcolor='white' uniquekeys='false'>
+<noteinfo noteid='15e' unid='35E0456E3843461DC12579ED00674316' sequence='41'>
+<created><datetime dst='true'>20120427T204753,82+02</datetime></created>
+<modified><datetime dst='true'>20130921T093145,25+02</datetime></modified>
+<revised><datetime dst='true'>20130621T102209,74+02</datetime></revised>
+<lastaccessed><datetime dst='true'>20130921T093145,24+02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20130921T093145,24+02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Mark Leusink/O=LinQed</name></updatedby>
+<wassignedby><name>CN=Mark Leusink/O=LinQed</name></wassignedby><code event='selection'><formula
+>SELECT Form="fToken"</formula></code>
+<column sort='ascending' hidedetailrows='false' itemname='userName' width='2.6250'
+ resizable='true' separatemultiplevalues='true' sortnoaccent='true' sortnocase='true'
+ showaslinks='false' categorized='true' twisties='true'><font size='9pt' style='bold'/><columnheader
+><font size='9pt' style='bold'/></columnheader></column>
+<column hidedetailrows='false' itemname='validUntil' width='12' resizable='true'
+ separatemultiplevalues='false' sortnoaccent='false' sortnocase='true' showaslinks='false'><font
+ size='9pt'/><columnheader title='valid until'><font size='9pt' style='bold'/></columnheader><datetimeformat
+ show='datetime' date='yearmonthday' showtodaywhenappropriate='true' fourdigityearfor21stcentury='true'
+ omitthisyear='true' time='hourminutesecond' zone='never' dateformat='weekdaydaymonthyear'
+ dayformat='twodigitday' monthformat='twodigitmonth' yearformat='fourdigityear'
+ weekdayformat='shortname' dateseparator1=' ' dateseparator2='-' dateseparator3='-'
+ timeseparator=':' timeformat24='true' preference='usersetting'/><numberformat
+ format='general' punctuated='false' parens='false' percent='false' bytes='false'/></column>
+<column hidedetailrows='false' itemname='$2' width='12' resizable='true' separatemultiplevalues='false'
+ sortnoaccent='false' sortnocase='true' showaslinks='false'><font size='9pt'/><columnheader
+ title='created'><font size='9pt' style='bold'/></columnheader><datetimeformat
+ show='datetime' date='yearmonthday' showtodaywhenappropriate='true' fourdigityearfor21stcentury='true'
+ omitthisyear='true' time='hourminutesecond' zone='never' dateformat='weekdaydaymonthyear'
+ dayformat='twodigitday' monthformat='twodigitmonth' yearformat='fourdigityear'
+ weekdayformat='shortname' dateseparator1=' ' dateseparator2='-' dateseparator3='-'
+ timeseparator=':' timeformat24='true' preference='usersetting'/><numberformat
+ format='general' punctuated='false' parens='false' percent='false' bytes='false'/><code
+ event='value'><formula>@Created</formula></code></column>
+<column hidedetailrows='false' itemname='$5' width='12' resizable='true' separatemultiplevalues='false'
+ sortnoaccent='false' sortnocase='true' showaslinks='false'><font size='9pt'/><columnheader
+ title='updated'><font size='9pt' style='bold'/></columnheader><datetimeformat
+ show='datetime' date='yearmonthday' showtodaywhenappropriate='true' fourdigityearfor21stcentury='true'
+ omitthisyear='true' time='hourminutesecond' zone='never' dateformat='weekdaydaymonthyear'
+ dayformat='twodigitday' monthformat='twodigitmonth' yearformat='fourdigityear'
+ weekdayformat='shortname' dateseparator1=' ' dateseparator2='-' dateseparator3='-'
+ timeseparator=':' timeformat24='true' preference='usersetting'/><numberformat
+ format='general' punctuated='false' parens='false' percent='false' bytes='false'/><code
+ event='value'><formula>@Modified</formula></code></column>
+<column hidedetailrows='false' itemname='remoteIp' width='9' resizable='true'
+ separatemultiplevalues='false' sortnoaccent='false' sortnocase='true' showaslinks='false'><font
+ size='9pt'/><columnheader title='from IP'><font size='9pt' style='bold'/></columnheader></column>
+<column hidedetailrows='false' itemname='$11' width='12' resizable='true'
+ separatemultiplevalues='false' sortnoaccent='false' sortnocase='true' showaslinks='false'><font
+ size='9pt'/><columnheader title='browser info'><font size='9pt' style='bold'/></columnheader><code
+ event='value'><formula>browser + " (" + browserVersion + ")"</formula></code></column></view>
+

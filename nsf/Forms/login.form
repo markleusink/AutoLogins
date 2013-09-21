@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='utf-8'?>
+<form name='login' xmlns='http://www.lotus.com/dxl' version='9.0' replicaid='C1257BED00295BDF'
+ nocompose='true' noquery='true' publicaccess='true' designerversion='8.5.3'
+ comment='sample login form with a remember me option'>
+<noteinfo noteid='152' unid='BED1B98009EA29FDC12579C1004F2CB8' sequence='237'>
+<created><datetime>20120314T152447,92+01</datetime></created>
+<modified><datetime dst='true'>20130921T093145,22+02</datetime></modified>
+<revised><datetime dst='true'>20130621T102209,62+02</datetime></revised>
+<lastaccessed><datetime dst='true'>20130921T093145,21+02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20130921T093145,21+02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Mark Leusink/O=CITC</name><name>CN=Mark Leusink/O=LinQed</name></updatedby>
+<wassignedby><name>CN=Mark Leusink/O=LinQed</name></wassignedby><code event='windowtitle'><formula
+>"Login"</formula></code><code event='htmlbody'><formula>"class=\"tundra\""</formula></code><code
+ event='htmlhead'><formula>"&lt;meta http-equiv='expires' content='0'&gt;" + @NewLine +
+"&lt;meta name=\"viewport\" content=\"user-scalable=no, width=device-width\"/&gt;" + @NewLine +
+"&lt;link rel=stylesheet type='text/css' href='/" + @WebDbName + "/login.css'&gt;" + @NewLine +
+"&lt;script type=\"text/javascript\" src=\"/" + @WebDbName + "/jsConfig.xsp\"&gt;&lt;/script&gt;" + @NewLine +
+"&lt;link rel=stylesheet type='text/css' href='/xsp/.ibmxspres/dojoroot/dijit/themes/tundra/tundra.css'&gt;" + @NewLine +
+"&lt;script type=\"text/javascript\" src=\"/xsp/.ibmxspres/dojoroot/dojo/dojo.js\" djConfig=\"locale: 'nl', parseOnLoad : true\"&gt;&lt;/script&gt;" + @NewLine</formula></code><code
+ event='jsheader' for='web'><javascript>dojo.addOnLoad( function() {
+
+	if (rememberMe.available) {
+		if (typeof dojo.cookie(rememberMe.cookieName) != "undefined" &amp;&amp;
+			reasonType != "1") {	
+			//user has a remember me cookie (and didn't get here because he didn't have access to the specified resource):
+			//redirect to validation page
+			dojo.style("loadingMessage", "display", "block");
+			window.location.replace(db + "/validate.xsp?to=" + encodeURIComponent( dojo.byId('redirectTo').value));
+			return;
+		} else {
+			dojo.style("loginForm","display", "block");
+			//show remember me checkbox
+			dojo.style("rememberMeContainer", "display", "");
+			dojo.byId("rememberMeDays").innerHTML = rememberMe.days;
+		}
+	}
+
+	//set focus on username field
+	dojo.style("loginForm","display", "block");
+	dojo.byId("user-id").focus();
+
+} );
+
+function validate() {
+	var user = dojo.byId('user-id');
+	var password = dojo.byId('pw-id');
+	if (user.value=="" || dojo.byId('pw-id').value =="") {
+		dojo.byId("required").style.display = "block";
+		(user.value=="" ? user : password).focus();
+		return false;
+	}
+	
+	//update redir to
+	var objRedirTo = dojo.byId('redirectTo');
+	if (dojo.byId('rememberMe').checked) {
+		var redirTo = db + "/rememberMe.xsp?to=" + encodeURIComponent( objRedirTo.value);
+		objRedirTo.value = redirTo;
+	}
+
+	return true;
+}
+</javascript></code>
+<body><richtext>
+<pardef id='1'/>
+<par def='1'><run html='true'>&lt;script type="text/javascript"&gt;</run></par>
+<par def='1'><run html='true'> dojo.require("dojo.cookie</run><run html='true'>");</run></par>
+<par def='1'><run html='true'> dojo.require("dijit.form.Button");</run></par>
+<par def='1'><run html='true'> dojo.require("dijit.form.CheckBox");</run></par>
+<par def='1'><run html='true'> dojo.require("dijit.form.TextBox");</run></par>
+<par def='1'><run html='true'> var db = '</run><run html='true'><font color='blue'/><computedtext
+><code event='value'><formula>"/" + @WebDbName</formula></code></computedtext></run><run
+ html='true'>';</run></par>
+<par def='1'><run html='true'> var reasonType = '</run><run html='true'><font
+ color='blue'/><computedtext><code event='value'><formula>ReasonType</formula></code></computedtext></run><run
+ html='true'>';</run></par>
+<par def='1'><run html='true'>&lt;/script&gt;</run></par>
+<par def='1'/>
+<pardef id='2' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='2'><run html='true'>&lt;div class="lotusLoginBox"&gt;</run></par>
+<par def='2'><run html='true'>  &lt;div id="loadingMessage"&gt;One moment please...&lt;/div&gt;</run></par>
+<par def='2'/>
+<par def='2'><run html='true'>&lt;div id="loginForm"&gt;</run></par>
+<par def='2'><run html='true'> &lt;div class="title"&gt;Login&lt;/div&gt;</run></par>
+<par def='2'><run html='true'> &lt;div class="loginContent"&gt;</run></par>
+<par def='1'><run html='true'>	&lt;div class="lotusFormError"&gt;</run><run
+ html='true'><font color='blue'/><computedtext><code event='value'><formula
+>sNotEnough	:= "%1, you are not authorized to access %2." + @NewLine + @NewLine + "Please sign in with a name which has sufficient access rights:";
+sInvalid		:= "You provided an invalid username or password.";
+sExpired		:= "Your login has expired. Please sign in again:";
+sOutOfSync	:= "%1, your login has been invalidated due to a timing issue with the login servers." + @NewLine + @NewLine + "(The servers may need to have their clocks synchronized to resolve this.)";
+sLockedOrInvalid	:= "You are locked out, or you have provided an invalid username or password.";
+
+User	:= @ProperCase(@Name([CN]; @UserName));
+URL	:= @Right(redirectTo; "/");
+URL	:= @If(@Contains(URL; "?"); @Left(URL; "?"); URL);
+
+List	:= User:URL;
+@For(n:=1; n&lt;=@Elements(List); n:=n+1;
+ sNotEnough := @ReplaceSubstring(sNotEnough; "%" + @Text(n); List[n]);
+ sOutOfSync := @ReplaceSubstring(sOutOfSync; "%" + @Text(n); List[n])
+);
+
+@If(	
+	reasonType = "1"; sNotEnough;
+	reasonType = "2"; sInvalid;
+	reasonType = "3"; sExpired;
+	reasonType = "4"; sOutOfSync;
+	reasonType = "5"; sLockedOrInvalid;
+"")</formula></code></computedtext></run><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='3' leftmargin='1in'/>
+<par def='3'><run html='true'>	&lt;div id="required" class="lotusFormError" style="display:none;"&gt;Please enter your username and password.&lt;/div&gt;</run></par>
+<pardef id='4' leftmargin='1in'><code event='hidewhen' enabled='false'><formula
+>!(reasonType="1":"2":"3":"4":"5")</formula></code></pardef>
+<par def='4'><run html='true'>	&lt;p&gt;</run><run html='true'>&lt;label for="user-id"&gt;Username</run><run
+ html='true'>&lt;/label&gt; </run><run html='true'><font name='Courier New'
+ pitch='fixed' truetype='true' familyid='30'/><field defaultfocus='true' usenotesstyle='false'
+ height='0.2500in' width='1in' multiline='true' borderstyle='single' type='text'
+ kind='editable' name='Username' htmlid='user-id' htmlclass='lotusText'><code
+ event='htmlattributes'><formula>"maxlength=50 autocomplete=off dojoType=\"dijit.form.TextBox\""</formula></code></field></run><run
+ html='true'>&lt;/p&gt;</run></par>
+<par def='4'><run html='true'>	&lt;p&gt;</run><run html='true'>&lt;label for="pw-id"&gt;</run><run
+ html='true'>Password</run><run html='true'>&lt;/lab</run><run html='true'>el</run><run
+ html='true'>&gt;</run><run html='true'><font name='Courier New' pitch='fixed'
+ truetype='true' familyid='30'/><field type='password' usenotesstyle='false'
+ height='0.2500in' width='1in' multiline='true' borderstyle='single' kind='editable'
+ seal='true' name='Password' htmlid='pw-id' htmlclass='lotusText'><code event='htmlattributes'><formula
+>"maxlength=100 autocomplete=off dojoType=\"dijit.form.TextBox\""</formula></code></field></run><run
+ html='true'>&lt;/p&gt;</run></par>
+<par def='4'><run html='true'>	&lt;p id="rememberMeContainer" style="display:none; margin-left: 1px;"&gt;</run><run
+ html='true'>&lt;input type="checkbox" name="rememberMe" id="rememberMe" dojoType="dijit.form.CheckBox" /&gt;&lt;label style="display:inline;" for="rememberMe"&gt;Remember me for &lt;span id="rememberMeDays"&gt;&lt;/span&gt;</run><run
+ html='true'> days&lt;/label&gt;&lt;/p&gt;</run></par>
+<par def='4'><run html='true'>	&lt;p&gt;&lt;button type="submit" onclick="return validate();" id="submitButton" class="lotusFormButton" dojoType="dijit.form.Button"&gt;Login&lt;/button&gt;&lt;/p&gt;</run></par>
+<par def='4'><run html='true'>&lt;!--</run> <button width='2in' widthtype='maximum'
+ maxlines='1' wraptext='true' bgcolor='system' htmlclass='lotusFormButton'>Aanmelden</button> <run
+ html='true'>--&gt;</run></par>
+<par def='4'><run html='true'> &lt;/div&gt;</run></par>
+<par def='4'><run html='true'>  &lt;div class="disclaimer"&gt;Auto Logins for IBM Domino/ XWork server&lt;br /&gt;(developed by &lt;a href="http://linqed.eu" target="_blank"&gt;Mark Leusink&lt;/a&gt;)&lt;/div&gt;</run></par>
+<par def='4'><run html='true'> &lt;/div&gt;<break/>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'> </run><run html='true'><field type='text' kind='editable'
+ name='RedirectTo' htmlid='redirectTo' extrahtmlattrs='type=hidden'><code
+ event='defaultvalue'><formula>"/"</formula></code></field></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='7' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='4'/>
+<pardef id='5' leftmargin='1in' hide='web'/>
+<par def='5'><run><font color='red'/>(hidden) $PublicAccess: </run><run><font
+ color='red'/><field type='text' kind='editable' name='$PublicAccess'><code
+ event='defaultvalue'><formula>"1"</formula></code></field></run><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='10' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run><font color='red'/>, ReasonType:</run><run
+><font color='red'/><field type='text' kind='editable' name='ReasonType'><code
+ event='defaultvalue'><formula>"0"</formula></code></field></run><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='19' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run><font color='red'/>, $$HTMLTagAttributes: </run><run
+><font color='red'/><field type='text' kind='computedfordisplay' name='$$HTMLTagAttributes'><code
+ event='defaultvalue'><formula>"lang=\"nl\""</formula></code></field></run><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='28' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run><font color='red'/>, $$HTMLFrontMatter: </run><run
+><font color='red'/><field type='text' kind='computedfordisplay' name='$$HTMLFrontMatter'><code
+ event='defaultvalue'><formula>"&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\"&gt;"</formula></code></field></run><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='37' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run><font color='red'/></run></par></richtext></body>
+<item name='OriginalModTime' sign='true'><datetime dst='true'>20050504T140639,65-04</datetime></item>
+<item name='$$ScriptName' summary='false' sign='true'><text>$$LoginUserForm</text></item></form>
+

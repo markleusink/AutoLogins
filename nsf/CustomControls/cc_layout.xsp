@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" style="margin: 10px;"
+	dojoTheme="true">
+
+	<xp:this.resources>
+		<xp:dojoModule name="dijit.form.Button"></xp:dojoModule>
+
+		<xp:styleSheet href="/autoLogins.css"></xp:styleSheet>
+	</xp:this.resources>
+
+	<h2 style="margin-bottom:15px">
+		<xp:text escape="fale" disableTheme="true">
+			<xp:this.value><![CDATA[#{javascript:view.getPageTitle()}]]></xp:this.value>
+		</xp:text>
+	</h2>
+
+	<xp:callback facetName="facetContent" id="callbackContent"></xp:callback>
+
+	<div class="footer">
+		Auto Logins for IBM Domino/ XWork server was brought to you by
+		&#160;
+		<xp:link escape="true" text="Mark Leusink" id="link2"
+			target="_blank">
+			<xp:this.value><![CDATA[http://linqed.eu]]></xp:this.value>
+		</xp:link>
+		&#160; and made available through &#160;
+		<xp:link escape="true" text="OpenNTF" id="link1"
+			target="_blank">
+			<xp:this.value><![CDATA[http://www.openntf.org/internal/home.nsf/project.xsp?action=openDocument&name=Auto%20Logins%20for%20IBM%20Domino/%20XWork%20server]]></xp:this.value>
+		</xp:link>
+		.
+	</div>
+
+</xp:view>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry right="NOACCESS" type="DEFAULT"
+					name="-Default-">
+				</xp:aclEntry>
+				<xp:aclEntry right="EDITOR" type="ROLE">
+					<xp:this.name><![CDATA[[admin]]]></xp:this.name>
+				</xp:aclEntry>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+
+	<xp:this.pageTitle><![CDATA[Auto Logins for IBM Domino/ XWork server | Tokens]]></xp:this.pageTitle>
+	<xc:cc_layout>
+		<xp:this.facets>
+			<xp:div xp:key="facetContent">
+
+				<div style="margin:10px 0">
+					<xp:button id="button1"
+						dojoType="dijit.form.Button">
+						<xp:this.value><![CDATA[#{javascript:(alConfigBean.getUnid()==null ? "Create configuration" : "Edit configuration"); }]]></xp:this.value>
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete">
+							<xp:this.action>
+								<xp:openPage
+									name="/configuration.xsp">
+								</xp:openPage>
+							</xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button id="button2" dojoType="dijit.form.Button"
+						value="Who am I?">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete">
+							<xp:this.action>
+								<xp:openPage name="/whoAmI.xsp"></xp:openPage>
+							</xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:link escape="true" text="Logout" id="link2"
+						value="/names.nsf?logout">
+					</xp:link>
+				</div>
+
+				<xp:viewPanel rows="30" id="viewPanel1" var="row"
+					rowClasses="even,odd">
+					<xp:this.facets>
+						<xp:pager partialRefresh="true"
+							layout="Previous Group Next" xp:key="headerPager" id="pager1">
+						</xp:pager>
+					</xp:this.facets>
+					<xp:this.data>
+						<xp:dominoView var="view1"
+							viewName="${javascript:return 'vwTokens'}" />
+					</xp:this.data>
+					<xp:viewColumn columnName="userName" id="viewColumn1" disableTheme="true" style="font-weight:bold">
+
+						<xp:this.converter>
+							<xp:customConverter getAsObject="#{javascript:return value}">
+								<xp:this.getAsString><![CDATA[#{javascript:var n = session.createName(value);
+return n.getAbbreviated()}]]></xp:this.getAsString>
+							</xp:customConverter>
+						</xp:this.converter>
+						<xp:viewColumnHeader value="" id="viewColumnHeader1"></xp:viewColumnHeader>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="validUntil"
+						id="viewColumn2" disableTheme="true">
+						<xp:this.converter>
+							<xp:convertDateTime type="both"></xp:convertDateTime>
+						</xp:this.converter>
+						<xp:viewColumnHeader value="Valid until"
+							id="viewColumnHeader2">
+						</xp:viewColumnHeader>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="$2" id="viewColumn3"
+						disableTheme="true">
+						<xp:this.converter>
+							<xp:convertDateTime type="both"></xp:convertDateTime>
+						</xp:this.converter>
+						<xp:viewColumnHeader value="Created"
+							id="viewColumnHeader3">
+						</xp:viewColumnHeader>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="$5" id="viewColumn4"
+						disableTheme="true">
+						<xp:this.converter>
+							<xp:convertDateTime type="both"></xp:convertDateTime>
+						</xp:this.converter>
+						<xp:viewColumnHeader value="Last updated"
+							id="viewColumnHeader4">
+						</xp:viewColumnHeader>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="$11" id="viewColumn5"
+						disableTheme="true">
+						<xp:viewColumnHeader value="Browser"
+							id="viewColumnHeader5">
+						</xp:viewColumnHeader>
+					</xp:viewColumn>
+
+					<xp:viewColumn columnName="remoteIp"
+						id="viewColumn7" disableTheme="true">
+						<xp:viewColumnHeader value="IP address"
+							id="viewColumnHeader6">
+						</xp:viewColumnHeader>
+					</xp:viewColumn>
+
+
+					<xp:viewColumn id="viewColumn6" value=""
+						disableTheme="true">
+						<xp:link escape="true" text="remove"
+							id="link1">
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="full" id="eventHandler1">
+								<xp:this.script><![CDATA[return confirm("Are you sure you want to remove this token?");]]></xp:this.script>
+								<xp:this.action><![CDATA[#{javascript:database.getDocumentByUNID(row.getUniversalID() ).remove(true);}]]></xp:this.action>
+							</xp:eventHandler>
+						</xp:link>
+					</xp:viewColumn>
+
+
+				</xp:viewPanel>
+
+			</xp:div>
+		</xp:this.facets>
+	</xc:cc_layout>
+</xp:view>

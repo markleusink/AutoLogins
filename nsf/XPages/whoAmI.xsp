@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<!--
+		<<
+		Auto Logins for IBM Domino/ XWork server
+		Copyright 2012 Mark Leusink - http://linqed.eu
+		Licensed under the Apache License, Version 2.0 (the "License"); you may not use this 
+		file except in compliance with the License. You may obtain a copy of the License at
+		
+		http://www.apache.org/licenses/LICENSE-2.0
+		
+		Unless required by applicable law or agreed to in writing, software distributed under
+		the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
+		ANY KIND, either express or implied. See the License for the specific language governing
+		permissions and limitations under the License
+		>> 
+	-->
+
+	<xp:this.pageTitle><![CDATA[Auto Logins for IBM Domino/ XWork server | Who am I?]]></xp:this.pageTitle>
+
+	<xc:cc_layout>
+		<xp:this.facets>
+			<xp:div xp:key="facetContent">
+				<p>
+					You have succesfully logged in to this site and are
+					now known here as:
+				</p>
+				<p style="margin-top: 20px;">
+					<xp:text escape="true" id="computedField1"
+						value="#{javascript:context.getUser().toString();}">
+					</xp:text>
+				</p>
+
+				<p style="margin: 20px">
+					<xp:link escape="true" text="basic logout"
+						id="link1" value="/names.nsf?logout">
+					</xp:link>
+					&#160;|&#160;
+					<xp:link escape="true" text="forget about me"
+						id="link2">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete">
+							<xp:this.action><![CDATA[#{javascript://delete the remember me cookie and log the user out
+			var exContext = facesContext.getExternalContext();
+			var response = exContext.getResponse();
+			
+			var currentRememberMeCookie = exContext.getRequestCookieMap().get(alConfigBean.getCookieName());
+			
+			if (currentRememberMeCookie != null) {
+				//delete the cookie
+				var rememberMeCookie = new javax.servlet.http.Cookie( alConfigBean.getCookieName(), "");
+				rememberMeCookie.setPath("/");
+				rememberMeCookie.setDomain( alConfigBean.getSsoDomain());
+				rememberMeCookie.setMaxAge(0);
+				response.addCookie(rememberMeCookie);
+			}
+			
+			response.sendRedirect( "/names.nsf?logout" );}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:link>
+					&#160;(removes rememberMe cookie)
+				</p>
+			</xp:div>
+		</xp:this.facets>
+				
+	</xc:cc_layout>
+
+
+</xp:view>

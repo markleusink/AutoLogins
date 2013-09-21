@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<view name='(Tokens by Id)' alias='vwTokensById' xmlns='http://www.lotus.com/dxl'
+ version='9.0' replicaid='C1257BED00295BDF' hide='web' showinmenu='false'
+ publicaccess='false' designerversion='8.5.3' unreadmarks='none' onopengoto='lastopened'
+ onrefresh='displayindicator' headers='beveled' opencollapsed='false' showresponsehierarchy='true'
+ showmargin='true' shrinkrows='false' extendlastcolumn='false' showhierarchies='false'
+ unreadcolor='black' rowlinecount='1' headerlinecount='1' rowspacing='1' bgcolor='white'
+ altrowcolor='#e0f1ff' totalscolor='black' headerbgcolor='white' boldunreadrows='false'
+ evaluateactions='false' allownewdocuments='false' allowcustomizations='true'
+ hidemarginborder='false' marginwidth='0px' marginbgcolor='white' uniquekeys='false'>
+<noteinfo noteid='406' unid='7E97372755C92501C1257A200042D679' sequence='10'>
+<created><datetime dst='true'>20120617T141002,81+02</datetime></created>
+<modified><datetime dst='true'>20130921T093146,92+02</datetime></modified>
+<revised><datetime dst='true'>20130621T102210,14+02</datetime></revised>
+<lastaccessed><datetime dst='true'>20130921T093146,91+02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20130921T093146,91+02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Mark Leusink/O=LinQed</name></updatedby>
+<wassignedby><name>CN=Mark Leusink/O=LinQed</name></wassignedby><code event='selection'><formula
+>SELECT Form="fToken"</formula></code>
+<column sort='ascending' hidedetailrows='false' itemname='tokenId' width='17.2500'
+ resizable='true' separatemultiplevalues='true' sortnoaccent='true' sortnocase='true'
+ showaslinks='false'><font size='9pt'/><columnheader title='tokenId'><font
+ size='9pt' style='bold'/></columnheader></column>
+<column hidedetailrows='false' itemname='validUntil' width='16' resizable='true'
+ separatemultiplevalues='false' sortnoaccent='false' sortnocase='true' showaslinks='false'><columnheader
+ title='validUntil'><font size='9pt' style='bold'/></columnheader></column>
+<column hidedetailrows='false' itemname='Username' width='19.7500' resizable='true'
+ separatemultiplevalues='false' sortnoaccent='false' sortnocase='true' showaslinks='false'><font
+ size='9pt'/><columnheader title='userName'><font size='9pt' style='bold'/></columnheader></column></view>
+

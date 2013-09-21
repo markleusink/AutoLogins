@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry right="NOACCESS" type="DEFAULT"
+					name="-Default-">
+				</xp:aclEntry>
+				<xp:aclEntry right="EDITOR" type="ROLE">
+					<xp:this.name><![CDATA[[admin]]]></xp:this.name>
+				</xp:aclEntry>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+
+	<xp:this.data>
+		<xp:dominoDocument var="document1" formName="fConfig"
+			action="editDocument">
+			<xp:this.documentId><![CDATA[#{javascript:alConfigBean.getUnid();
+}]]></xp:this.documentId>
+		</xp:dominoDocument>
+	</xp:this.data>
+
+	<xp:this.pageTitle><![CDATA[Auto Logins for IBM Domino/ XWork server | Configuration]]></xp:this.pageTitle>
+	<xc:cc_layout>
+		<xp:this.facets>
+			<xp:div xp:key="facetContent">
+
+				<xp:table>
+
+					<xp:tr>
+						<xp:td>
+							<xp:label value="SSO organisation name:"
+								id="ssoOrganisationName_Label1" for="ssoOrganisationName1">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{document1.ssoOrganisationName}"
+								id="ssoOrganisationName1">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="SSO config name:"
+								id="ssoConfigName_Label1" for="ssoConfigName1">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{document1.ssoConfigName}" id="ssoConfigName1"
+								defaultValue="LtpaToken">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+
+					<xp:tr>
+						<xp:td>
+							<xp:label id="cookieName_Label1"
+								for="cookieName1">
+								<xp:this.value><![CDATA["Remember me" cookie name:]]></xp:this.value>
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{document1.cookieName}" id="cookieName1"
+								defaultValue="rememberMe">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+
+					<xp:tr>
+						<xp:td>
+							<xp:label value="Remember me days:"
+								id="rememberMeDays_Label1" for="rememberMeDays1">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{document1.rememberMeDays}" id="rememberMeDays1"
+								defaultValue="5" style="width:40px">
+								<xp:this.converter>
+									<xp:convertNumber type="number"
+										integerOnly="true">
+									</xp:convertNumber>
+								</xp:this.converter>
+							</xp:inputText>
+							&#160;days
+						</xp:td>
+					</xp:tr>
+
+					<xp:tr valign="top">
+						<xp:td style="padding-top: 15px;">
+							Restrict&#160;auto logins to IP addresses
+							starting with:
+							<xp:br></xp:br>
+							(e.g. 192.168.10)
+						</xp:td>
+						<xp:td style="padding-top: 15px;">
+							<xp:checkBox text="Enable restrictions"
+								id="checkBox2" checkedValue="1" uncheckedValue="0"
+								value="#{document1.allowedIPPatternsEnabled}">
+							</xp:checkBox>
+							<xp:br></xp:br>
+							<xp:inputTextarea id="inputTextarea1"
+								multipleTrim="true" value="#{document1.allowedIPPatterns}"
+								rows="5" cols="22">
+								<xp:this.multipleSeparator><![CDATA[#{javascript:"\n"}]]></xp:this.multipleSeparator>
+							</xp:inputTextarea>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td style="padding-top: 15px;">
+							<xp:label value="Debug mode:"
+								id="debug_Label1" for="debug1">
+							</xp:label>
+						</xp:td>
+						<xp:td style="padding-top: 15px;">
+
+							<xp:checkBox text="Enable debug mode"
+								id="checkBox1" checkedValue="1" uncheckedValue="0"
+								value="#{document1.debug}">
+							</xp:checkBox>
+						</xp:td>
+					</xp:tr>
+
+				</xp:table>
+				<xp:br></xp:br>
+				<xp:button id="button1" value="Save"
+					dojoType="dijit.form.Button">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete">
+						<xp:this.action><![CDATA[#{javascript:var itemReaders = document1.getDocument(true).replaceItemValue("docReaders", "[admin]");
+						itemReaders.setReaders(true);
+						
+						document1.save();
+						
+alConfigBean.reload();
+context.redirectToPage("tokens");
+}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:button>
+				<xp:link escape="true" text="Cancel" id="link1">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete" immediate="true">
+						<xp:this.action>
+							<xp:openPage name="/tokens.xsp"></xp:openPage>
+						</xp:this.action>
+					</xp:eventHandler>
+				</xp:link>
+
+			</xp:div>
+
+
+		</xp:this.facets>
+
+	</xc:cc_layout>
+
+</xp:view>
